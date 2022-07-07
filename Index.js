@@ -1,13 +1,12 @@
 import express from 'express';
+import usuarioRoutes from './routes/usuarioRoutes.js';
 
 const app = express();
 
 /**
  * * Routing
  */
-app.get('/', (req, res) => {
-    res.json({msg:'Prueba de routing'});
-});
+app.use('/', usuarioRoutes);
 
 /**
  * * Definición del puerto del proyecto
