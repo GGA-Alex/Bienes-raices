@@ -9,6 +9,11 @@ const app = express();
  app.set('view engine', 'Pug');
  app.set('views', './views');
 
+ /**
+  * * Carpeta publica
+  */
+ app.use(express.static('public'))
+
 /**
  * * Routing
  */
