@@ -5,6 +5,11 @@ import usuarioRoutes from './routes/usuarioRoutes.js';
 const app = express();
 
 /**
+ * * Habilitar lectura de datos de formulario
+ */
+app.use( express.urlencoded({extended: true}) );
+
+/**
  * * Conexión a base de datos
  */
 try {
