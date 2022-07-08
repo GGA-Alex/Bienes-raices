@@ -12,7 +12,7 @@ const app = express();
 /**
  * * Routing
  */
-app.use('/', usuarioRoutes);
+app.use('/auth', usuarioRoutes);
 
 /**
  * * Definición del puerto del proyecto
