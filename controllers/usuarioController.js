@@ -47,11 +47,16 @@ const registrar = async (req, res) => {
         }); 
     }
 
-    const usuario = await Usuario.create({
+    await Usuario.create({
         nombre,
         email,
         password,
         token: generarId()
+    });
+
+    res.render('templates/mensaje', {
+        pagina: 'Cuenta creada correctamente',
+        mensaje: 'Te hemos enviado un email de confirmación, presiona en el enlace.'
     });
 }
 
