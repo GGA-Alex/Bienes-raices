@@ -15,6 +15,8 @@ const formularioRegistro = (req, res) => {
 
 const registrar = async (req, res) => {
 
+    const { nombre, email, password } = req.body;
+
     await check('nombre').notEmpty().withMessage('El Nombre no puede ir vacio').run(req);
     await check('email').isEmail().withMessage('Forma de email incorrecta').run(req);
     await check('password').isLength({min:6}).withMessage('El password debe de tener al menos 6 caracteres').run(req);
@@ -26,13 +28,11 @@ const registrar = async (req, res) => {
             pagina: 'Crear cuenta',
             errores: resultado.array(),
             usuario: {
-                nombre: req.body.nombre,
-                email: req.body.email
+                nombre: nombre,
+                email: email
             }
         });
     }
-
-    const { nombre, email, password } = req.body;
 
     const existeUsuario = await Usuario.findOne( { where: { email } } );
     if(existeUsuario) {
@@ -40,14 +40,18 @@ const registrar = async (req, res) => {
             pagina: 'Crear cuenta',
             errores: [{msg: 'El Usuario ya esta registrado'}],
             usuario: {
-                nombre: req.body.nombre,
-                email: req.body.email
+                nombre: nombre,
+                email: email
             }
         }); 
     }
 
-    const usuario = await Usuario.create(req.body);
-    res.json(usuario);
+    const usuario = await Usuario.create({
+        nombre,
+        email,
+        password,
+        token: 123
+    });
 }
 
 const formularioOlvidePassword = (req, res) => {
